@@ -53,6 +53,7 @@
     <Compile Include="Enums\CardTeamVelocity.cs" />
     <Compile Include="Models\CardTeamBase.cs" />
     <Compile Include="Models\CardTeamDeveloper.cs" />
+    <Compile Include="Models\CardTeamManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
