@@ -1,4 +1,5 @@
-﻿using IAMPM.GameObjects.Enums;
+﻿using System;
+using IAMPM.GameObjects.Enums;
 
 namespace IAMPM.GameObjects.Models
 {
@@ -7,10 +8,41 @@ namespace IAMPM.GameObjects.Models
         public CardTeamVelocity Velocity { get; private set; }
         public CardTeamDevOccupation Occupation { get; private set; }
 
-        public CardTeamDeveloper(CardTeamType type, CardTeamTechnology technology, CardTeamLevel level, CardTeamDomain domain, CardTeamSalary salary, CardTeamSalaryBonus salaryBonus, CardTeamVelocity velocity, CardTeamDevOccupation occupation) : base(type, technology, level, domain, salary, salaryBonus)
+        public CardTeamDeveloper()
         {
-            Velocity = velocity;
-            Occupation = occupation;
         }
+
+        public CardTeamDeveloper(
+            CardTeamType type,
+            CardTeamTechnology technology,
+            CardTeamLevel level,
+            CardTeamDevOccupation occupation)
+            : base(type, technology, level)
+        {
+            Occupation = occupation;
+            Velocity = GetTeamVelosityByLevel(level);
+        }
+
+        private CardTeamVelocity GetTeamVelosityByLevel(CardTeamLevel level)
+        {
+            switch (level)
+            {
+                case CardTeamLevel.Intern:
+                    return CardTeamVelocity.Intern;
+                case CardTeamLevel.Junior:
+                    return CardTeamVelocity.Junior;
+                case CardTeamLevel.Middle:
+                    return CardTeamVelocity.Middle;
+                case CardTeamLevel.Senior:
+                    return CardTeamVelocity.Senior;
+                case CardTeamLevel.Chief:
+                    return CardTeamVelocity.Chief;
+                default: throw new NotImplementedException();
+            }
+        }
+
     }
+
+
+
 }

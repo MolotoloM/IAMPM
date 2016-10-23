@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8372DCEC-B199-4DD3-927D-A3DDFFEB5E4F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{35C325DA-D17A-48F7-8862-4727F7188488}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IAMPM</RootNamespace>
-    <AssemblyName>IAMPM</AssemblyName>
+    <RootNamespace>IAMPM.Helpers</RootNamespace>
+    <AssemblyName>IAMPM.Helpers</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,26 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="JsonHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\IAMPM.GameObjects\IAMPM.GameObjects.csproj">
-      <Project>{e7eca10e-8952-4172-8d17-3a58e3f991e6}</Project>
-      <Name>IAMPM.GameObjects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IAMPM.Helpers\IAMPM.Helpers.csproj">
-      <Project>{35C325DA-D17A-48F7-8862-4727F7188488}</Project>
-      <Name>IAMPM.Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IAMPM.Services\IAMPM.Services.csproj">
-      <Project>{FECA50D0-DEE0-4E8F-928C-C5E6DB4AD663}</Project>
-      <Name>IAMPM.Services</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
