@@ -8,11 +8,6 @@ namespace IAMPM.GameObjects.Models
         //создание id карты команды через свойство get и protected конструктор
         private static int _id = 1;
 
-        protected CardTeamBase()
-        {
-
-        }
-
         protected CardTeamBase(
             CardTeamType type,
             CardTeamTechnology technology,

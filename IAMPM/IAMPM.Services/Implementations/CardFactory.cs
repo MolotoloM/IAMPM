@@ -1,5 +1,7 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
+using IAMPM.GameObjects.Enums;
 using IAMPM.GameObjects.Models;
 using IAMPM.Helpers;
 using IAMPM.Services.Interfaces;
@@ -8,20 +10,112 @@ namespace IAMPM.Services.Implementations
 {
     public class CardFactory : ICardFactory
     {
-        private readonly string _allCardsJsonPath = ConfigurationManager.AppSettings["AllCardsJson"];
+        private readonly string _devCardsJsonPath = ConfigurationManager.AppSettings["DevCardsJson"];
+        private readonly string _manCardsJsonPath = ConfigurationManager.AppSettings["ManCardsJson"];
 
-        public CardTeamBase[] GetDevAllCards()
+        public CardTeamDeveloper[] GetDevAllCards()
         {
-            if (string.IsNullOrEmpty(_allCardsJsonPath))
+            if (ValidateFile(_devCardsJsonPath))
             {
-                return null;
+                var json = File.ReadAllText(_devCardsJsonPath);
+                return json.Deserialize<CardTeamDeveloper[]>();
             }
-            if (File.Exists(_allCardsJsonPath) == false)
+            return null;
+        }
+
+        public CardTeamManager[] GetManAllCards()
+        {
+            if (ValidateFile(_manCardsJsonPath))
             {
-                return null;
+                var json = File.ReadAllText(_manCardsJsonPath);
+                return json.Deserialize<CardTeamManager[]>();
             }
-            string json = File.ReadAllText(_allCardsJsonPath);
-            return json.Deserialize<CardTeamDeveloper[]>();
+            return null;
+        }
+
+        public CardTeamDeveloper[] CreateDevAllCards()
+        {
+            var testCards = new List<CardTeamDeveloper>();
+
+            CardTeamTechnology[] technologyArray =
+            {
+                CardTeamTechnology.Web,
+                CardTeamTechnology.Mobile,
+                CardTeamTechnology.Desktop,
+                CardTeamTechnology.IoT,
+                CardTeamTechnology.BigData
+            };
+
+            CardTeamLevel[] levelArray =
+            {
+                CardTeamLevel.Intern,
+                CardTeamLevel.Junior,
+                CardTeamLevel.Middle,
+                CardTeamLevel.Senior,
+                CardTeamLevel.Chief
+            };
+
+            foreach (var technology in technologyArray)
+            {
+                for (var i = 0; i < 2; i++)
+                {
+                    foreach (var level in levelArray)
+                    {
+                        testCards.Add(new CardTeamDeveloper(CardTeamType.Developer, technology, level,
+                            CardTeamDevOccupation.Developer));
+                    }
+                }
+            }
+            return testCards.ToArray();
+        }
+
+        public CardTeamManager[] CreateManAllCards()
+        {
+            var testCards = new List<CardTeamManager>();
+
+            CardTeamTechnology[] technologyArray =
+            {
+                CardTeamTechnology.Web,
+                CardTeamTechnology.Mobile,
+                CardTeamTechnology.Desktop,
+                CardTeamTechnology.IoT,
+                CardTeamTechnology.BigData
+            };
+
+            CardTeamLevel[] levelArray =
+            {
+                CardTeamLevel.Intern,
+                CardTeamLevel.Junior,
+                CardTeamLevel.Middle,
+                CardTeamLevel.Senior,
+                CardTeamLevel.Chief
+            };
+
+            foreach (var technology in technologyArray)
+            {
+                for (var i = 0; i < 2; i++)
+                {
+                    foreach (var level in levelArray)
+                    {
+                        testCards.Add(new CardTeamManager(CardTeamType.Manager, technology, level,
+                            CardTeamManOccupation.HR));
+                    }
+                }
+            }
+            return testCards.ToArray();
+        }
+
+        private bool ValidateFile(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                return false;
+            }
+            if (File.Exists(path) == false)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

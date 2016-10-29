@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using IAMPM.GameObjects.Enums;
 
 namespace IAMPM.GameObjects.Models
@@ -7,10 +8,6 @@ namespace IAMPM.GameObjects.Models
     {
         public CardTeamVelocity Velocity { get; private set; }
         public CardTeamDevOccupation Occupation { get; private set; }
-
-        public CardTeamDeveloper()
-        {
-        }
 
         public CardTeamDeveloper(
             CardTeamType type,
@@ -41,8 +38,10 @@ namespace IAMPM.GameObjects.Models
             }
         }
 
+        public override string ToString()
+        {
+            return string.Format("Id: {0}, Type: {1}, Technology: {2}, Level: {3}, Velocity: {4}, Occupation: {5}, Salary: {6}, Salary Bonus: {7}", 
+                Id, Type, Technology, Level, Velocity, Occupation, Salary, SalaryBonus);
+        }
     }
-
-
-
 }

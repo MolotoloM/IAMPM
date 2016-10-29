@@ -1,10 +1,14 @@
-﻿using IAMPM.GameObjects.Models;
+﻿using IAMPM.GameObjects.Enums;
+using IAMPM.GameObjects.Models;
 
 namespace IAMPM.Services.Interfaces
 {
     //в интерфейсе все public
     public interface ICardFactory
     {
-        CardTeamBase[] GetDevAllCards();
+        CardTeamDeveloper[] GetDevAllCards();
+        CardTeamManager[] GetManAllCards();
+        CardTeamDeveloper[] CreateDevAllCards();
+        CardTeamManager[] CreateManAllCards();
     }
 }

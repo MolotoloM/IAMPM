@@ -58,5 +58,11 @@ namespace IAMPM.GameObjects.Models
                     throw new NotImplementedException();
             }
         }
+
+        public override string ToString()
+        {
+            return string.Format("Id: {0}, Type: {1}, Technology: {2}, Level: {3}, Capacity: {4}, Sales: {5},  Occupation: {6}, Salary: {7}, Salary Bonus: {8}",
+                Id, Type, Technology, Level, Capacity, Sales, Occupation, Salary, SalaryBonus);
+        }
     }
 }
