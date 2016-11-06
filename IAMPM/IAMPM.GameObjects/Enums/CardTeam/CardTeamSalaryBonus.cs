@@ -1,4 +1,4 @@
-﻿namespace IAMPM.GameObjects.Enums
+﻿namespace IAMPM.GameObjects.Enums.CardTeam
 {
     public enum CardTeamSalaryBonus : int
     {

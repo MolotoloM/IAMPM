@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Net.Http.Headers;
 using IAMPM.GameObjects.Enums;
 using IAMPM.GameObjects.Models;
+using IAMPM.GameObjects.Models.ModelTeam;
 using IAMPM.Helpers;
 using IAMPM.Services.Implementations;
 
@@ -14,17 +15,12 @@ namespace IAMPM
     {
         static void Main(string[] args)
         {
-            var factory = new CardFactory();
-            //CardTeamBase[] cards = factory.GetDevAllCards();
+            CreateProjectCards();
+        }
 
-            //CardTeamDeveloper[] devCards1 = factory.CreateDevAllCards();
-            //CardTeamManager[] manCards1 = factory.CreateManAllCards();
-            //
-            //string jsonDevCards = devCards1.Serialize();
-            //string jsonManCards = manCards1.Serialize();
-            //
-            //File.WriteAllText(@"F:\Dropbox\ProJecT\IAMPM\BoardGame\2.0\beta\IAMPM\IAMPM\Data\DevCards.json", jsonDevCards);
-            //File.WriteAllText(@"F:\Dropbox\ProJecT\IAMPM\BoardGame\2.0\beta\IAMPM\IAMPM\Data\ManCards.json", jsonManCards);
+        static void CreateTeamCards()
+        {
+            var factory = new CardFactory();
 
             CardTeamDeveloper[] devCards = factory.GetDevAllCards();
             CardTeamManager[] manCards = factory.GetManAllCards();
@@ -39,9 +35,15 @@ namespace IAMPM
             {
                 Console.WriteLine(cardTeamManager);
             }
-
         }
 
+        static void CreateProjectCards()
+        {
+            var factory = new CardFactory();
+            var cards = factory.CreateProjectOutsourceCards();
+
+            var json = cards.Serialize();
+            File.WriteAllText("ProjectCards.js", json);
+        }
     }
-    
 }

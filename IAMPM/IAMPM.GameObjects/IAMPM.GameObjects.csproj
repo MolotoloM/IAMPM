@@ -40,20 +40,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\CardTeamCapacity.cs" />
-    <Compile Include="Enums\CardTeamDomain.cs" />
-    <Compile Include="Enums\CardTeamLevel.cs" />
-    <Compile Include="Enums\CardTeamDevOccupation.cs" />
-    <Compile Include="Enums\CardTeamManOccupation.cs" />
-    <Compile Include="Enums\CardTeamSalary.cs" />
-    <Compile Include="Enums\CardTeamSalaryBonus.cs" />
-    <Compile Include="Enums\CardTeamSales.cs" />
-    <Compile Include="Enums\CardTeamTechnology.cs" />
-    <Compile Include="Enums\CardTeamType.cs" />
-    <Compile Include="Enums\CardTeamVelocity.cs" />
-    <Compile Include="Models\CardTeamBase.cs" />
-    <Compile Include="Models\CardTeamDeveloper.cs" />
-    <Compile Include="Models\CardTeamManager.cs" />
+    <Compile Include="Enums\CardProject\CardProjectType.cs" />
+    <Compile Include="Enums\CardTeam\CardTeamCapacity.cs" />
+    <Compile Include="Enums\CardTeam\CardTeamDomain.cs" />
+    <Compile Include="Enums\CardTeam\CardTeamLevel.cs" />
+    <Compile Include="Enums\CardTeam\CardTeamDevOccupation.cs" />
+    <Compile Include="Enums\CardTeam\CardTeamManOccupation.cs" />
+    <Compile Include="Enums\CardTeam\CardTeamSalary.cs" />
+    <Compile Include="Enums\CardTeam\CardTeamSalaryBonus.cs" />
+    <Compile Include="Enums\CardTeam\CardTeamSales.cs" />
+    <Compile Include="Enums\CardTeam\CardTeamTechnology.cs" />
+    <Compile Include="Enums\CardTeam\CardTeamType.cs" />
+    <Compile Include="Enums\CardTeam\CardTeamVelocity.cs" />
+    <Compile Include="Models\ModelProject\CardProjectBase.cs" />
+    <Compile Include="Models\ModelProject\CardProjectDependency.cs" />
+    <Compile Include="Enums\CardProject\TeamDependency.cs" />
+    <Compile Include="Models\ModelProject\CardProjectDependencyItem.cs" />
+    <Compile Include="Models\ModelProject\CardProjectOutsource.cs" />
+    <Compile Include="Models\ModelTeam\CardTeamBase.cs" />
+    <Compile Include="Models\ModelTeam\CardTeamDeveloper.cs" />
+    <Compile Include="Models\ModelTeam\CardTeamManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

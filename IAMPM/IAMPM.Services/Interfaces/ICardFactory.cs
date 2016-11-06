@@ -1,5 +1,6 @@
-﻿using IAMPM.GameObjects.Enums;
-using IAMPM.GameObjects.Models;
+﻿using IAMPM.GameObjects.Enums.CardProject;
+using IAMPM.GameObjects.Models.ModelProject;
+using IAMPM.GameObjects.Models.ModelTeam;
 
 namespace IAMPM.Services.Interfaces
 {
@@ -10,5 +11,6 @@ namespace IAMPM.Services.Interfaces
         CardTeamManager[] GetManAllCards();
         CardTeamDeveloper[] CreateDevAllCards();
         CardTeamManager[] CreateManAllCards();
+        CardProjectOutsource[] CreateProjectOutsourceCards();
     }
 }

@@ -1,7 +1,7 @@
 using System;
-using IAMPM.GameObjects.Enums;
+using IAMPM.GameObjects.Enums.CardTeam;
 
-namespace IAMPM.GameObjects.Models
+namespace IAMPM.GameObjects.Models.ModelTeam
 {
     public class CardTeamManager : CardTeamBase
     {

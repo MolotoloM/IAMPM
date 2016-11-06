@@ -1,8 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using IAMPM.GameObjects.Enums;
+using IAMPM.GameObjects.Enums.CardProject;
+using IAMPM.GameObjects.Enums.CardTeam;
 using IAMPM.GameObjects.Models;
+using IAMPM.GameObjects.Models.ModelProject;
+using IAMPM.GameObjects.Models.ModelTeam;
 using IAMPM.Helpers;
 using IAMPM.Services.Interfaces;
 
@@ -116,6 +122,48 @@ namespace IAMPM.Services.Implementations
                 return false;
             }
             return true;
+        }
+
+        public CardProjectOutsource[] CreateProjectOutsourceCards()
+        {
+            var cardProjectOutsource = new List<CardProjectOutsource>();
+
+            List<CardProjectOutsource> firstSection = CreateProjectOutsourceCardsHelper(25000, 25000, 750, 750, 5, 5);
+            cardProjectOutsource.AddRange(firstSection);
+
+            List<CardProjectOutsource> secondSection = CreateProjectOutsourceCardsHelper(50000, 50000, 1500, 1500, 10, 10);
+            cardProjectOutsource.AddRange(secondSection);
+
+            return cardProjectOutsource.ToArray();
+        }
+
+        private List<CardProjectOutsource> CreateProjectOutsourceCardsHelper(int budgetStart, int budgetDelta, int workloadStart, int workloadDelta, int periodStart, int periodDelta)
+        {
+            var cardProjectOutsource = new List<CardProjectOutsource>();
+
+            for (var i = 0; i < 3; i++)
+            {
+                var budget = budgetStart + budgetDelta * i;
+                var workload = workloadStart + workloadDelta * i;
+                var period = periodStart + periodDelta * i;
+
+                for (int j = 0; j < 3; j++)
+                {
+                    var dependency = new CardProjectDependency()
+                    {
+                        Level = new[]
+                            {
+                                new CardProjectDependencyItem<CardTeamLevel>()
+                                {
+                                    People = TeamDependency.OneDeveloper,
+                                    Value = CardTeamLevel.Junior
+                                }
+                            }
+                    };
+                    cardProjectOutsource.Add(new CardProjectOutsource(budget, null, CardProjectType.Outsource, workload, period, dependency, null));
+                }
+            }
+            return cardProjectOutsource;
         }
     }
 }
