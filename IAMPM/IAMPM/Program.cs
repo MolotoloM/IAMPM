@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq.Expressions;
-using System.Net.Http.Headers;
-using IAMPM.GameObjects.Enums;
-using IAMPM.GameObjects.Models;
+using IAMPM.GameEngine.Implementations;
+using IAMPM.GameEngine.Interfaces;
 using IAMPM.GameObjects.Models.ModelTeam;
 using IAMPM.Helpers;
 using IAMPM.Services.Implementations;
@@ -15,7 +12,22 @@ namespace IAMPM
     {
         static void Main(string[] args)
         {
-            CreateProjectCards();
+            //CreateProjectCards();
+            //GetProjectOutsourceAllCards();
+            IGame game = new IampmGame(new CardFactory(), 1);
+            IGameEngine gameEngine = new GameEngine.Implementations.GameEngine(game);
+            gameEngine.Start();
+        }
+
+        static void GetProjectOutsourceAllCards()
+        {
+            var factory = new CardFactory();
+            var cards = factory.GetProjectOutsourceAllCards();
+
+            foreach (var card in cards)
+            {
+                Console.WriteLine(card);
+            }
         }
 
         static void CreateTeamCards()
@@ -43,7 +55,7 @@ namespace IAMPM
             var cards = factory.CreateProjectOutsourceCards();
 
             var json = cards.Serialize();
-            File.WriteAllText("ProjectCards.js", json);
+            File.WriteAllText("ProjectCards.json", json);
         }
     }
 }

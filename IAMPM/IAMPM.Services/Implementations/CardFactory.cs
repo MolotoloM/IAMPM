@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
 using System.IO;
-using IAMPM.GameObjects.Enums;
 using IAMPM.GameObjects.Enums.CardProject;
 using IAMPM.GameObjects.Enums.CardTeam;
-using IAMPM.GameObjects.Models;
 using IAMPM.GameObjects.Models.ModelProject;
 using IAMPM.GameObjects.Models.ModelTeam;
 using IAMPM.Helpers;
@@ -16,9 +12,19 @@ namespace IAMPM.Services.Implementations
 {
     public class CardFactory : ICardFactory
     {
-        private readonly string _devCardsJsonPath = ConfigurationManager.AppSettings["DevCardsJson"];
-        private readonly string _manCardsJsonPath = ConfigurationManager.AppSettings["ManCardsJson"];
+        private readonly string _dataJsonPath = ConfigurationManager.AppSettings["DataJsonPath"];
+        private readonly string _devCardsJsonPath;
+        private readonly string _manCardsJsonPath;
+        private readonly string _projectOutsourceJsonPath;
 
+        public CardFactory()
+        {
+            _devCardsJsonPath = Path.Combine(_dataJsonPath, ConfigurationManager.AppSettings["DevCardsJson"]);
+            _manCardsJsonPath = Path.Combine(_dataJsonPath, ConfigurationManager.AppSettings["ManCardsJson"]);
+            _projectOutsourceJsonPath = Path.Combine(_dataJsonPath, ConfigurationManager.AppSettings["ProjectOutsourceCardsJson"]);
+        }
+
+        #region GET
         public CardTeamDeveloper[] GetDevAllCards()
         {
             if (ValidateFile(_devCardsJsonPath))
@@ -39,6 +45,19 @@ namespace IAMPM.Services.Implementations
             return null;
         }
 
+        public CardProjectOutsource[] GetProjectOutsourceAllCards()
+        {
+            if (ValidateFile(_projectOutsourceJsonPath))
+            {
+                var json = File.ReadAllText(_projectOutsourceJsonPath);
+                return json.Deserialize<CardProjectOutsource[]>();
+            }
+            return null;
+        }
+
+        #endregion
+
+        #region Create
         public CardTeamDeveloper[] CreateDevAllCards()
         {
             var testCards = new List<CardTeamDeveloper>();
@@ -111,6 +130,20 @@ namespace IAMPM.Services.Implementations
             return testCards.ToArray();
         }
 
+        public CardProjectOutsource[] CreateProjectOutsourceCards()
+        {
+            var cardProjectOutsource = new List<CardProjectOutsource>();
+
+            var firstSection = CreateProjectOutsourceCardsHelper(25000, 25000, 750, 750, 5, 5);
+            cardProjectOutsource.AddRange(firstSection);
+
+            var secondSection = CreateProjectOutsourceCardsHelper(50000, 50000, 1500, 1500, 10, 10);
+            cardProjectOutsource.AddRange(secondSection);
+
+            return cardProjectOutsource.ToArray();
+        }
+        #endregion
+
         private bool ValidateFile(string path)
         {
             if (string.IsNullOrEmpty(path))
@@ -124,20 +157,8 @@ namespace IAMPM.Services.Implementations
             return true;
         }
 
-        public CardProjectOutsource[] CreateProjectOutsourceCards()
-        {
-            var cardProjectOutsource = new List<CardProjectOutsource>();
-
-            List<CardProjectOutsource> firstSection = CreateProjectOutsourceCardsHelper(25000, 25000, 750, 750, 5, 5);
-            cardProjectOutsource.AddRange(firstSection);
-
-            List<CardProjectOutsource> secondSection = CreateProjectOutsourceCardsHelper(50000, 50000, 1500, 1500, 10, 10);
-            cardProjectOutsource.AddRange(secondSection);
-
-            return cardProjectOutsource.ToArray();
-        }
-
-        private List<CardProjectOutsource> CreateProjectOutsourceCardsHelper(int budgetStart, int budgetDelta, int workloadStart, int workloadDelta, int periodStart, int periodDelta)
+        private List<CardProjectOutsource> CreateProjectOutsourceCardsHelper(int budgetStart, int budgetDelta,
+            int workloadStart, int workloadDelta, int periodStart, int periodDelta)
         {
             var cardProjectOutsource = new List<CardProjectOutsource>();
 
@@ -147,20 +168,21 @@ namespace IAMPM.Services.Implementations
                 var workload = workloadStart + workloadDelta * i;
                 var period = periodStart + periodDelta * i;
 
-                for (int j = 0; j < 3; j++)
+                for (var j = 0; j < 3; j++)
                 {
-                    var dependency = new CardProjectDependency()
+                    var dependency = new CardProjectDependency
                     {
                         Level = new[]
+                        {
+                            new CardProjectDependencyItem<CardTeamLevel>
                             {
-                                new CardProjectDependencyItem<CardTeamLevel>()
-                                {
-                                    People = TeamDependency.OneDeveloper,
-                                    Value = CardTeamLevel.Junior
-                                }
+                                People = TeamDependency.OneDeveloper,
+                                Value = CardTeamLevel.Junior
                             }
+                        }
                     };
-                    cardProjectOutsource.Add(new CardProjectOutsource(budget, null, CardProjectType.Outsource, workload, period, dependency, null));
+                    cardProjectOutsource.Add(new CardProjectOutsource(budget, null, CardProjectType.Outsource, workload,
+                        period, dependency, null));
                 }
             }
             return cardProjectOutsource;

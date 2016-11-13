@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E7ECA10E-8952-4172-8D17-3A58E3F991E6}</ProjectGuid>
+    <ProjectGuid>{4170118C-ADF7-4EFF-BDD0-E1EDB18AE3FF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IAMPM.GameObjects</RootNamespace>
-    <AssemblyName>IAMPM.GameObjects</AssemblyName>
+    <RootNamespace>IAMPM.GameEngine</RootNamespace>
+    <AssemblyName>IAMPM.GameEngine</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,32 +40,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\CardProject\CardProjectType.cs" />
-    <Compile Include="Enums\CardTeam\CardTeamCapacity.cs" />
-    <Compile Include="Enums\CardTeam\CardTeamDomain.cs" />
-    <Compile Include="Enums\CardTeam\CardTeamLevel.cs" />
-    <Compile Include="Enums\CardTeam\CardTeamDevOccupation.cs" />
-    <Compile Include="Enums\CardTeam\CardTeamManOccupation.cs" />
-    <Compile Include="Enums\CardTeam\CardTeamSalary.cs" />
-    <Compile Include="Enums\CardTeam\CardTeamSalaryBonus.cs" />
-    <Compile Include="Enums\CardTeam\CardTeamSales.cs" />
-    <Compile Include="Enums\CardTeam\CardTeamTechnology.cs" />
-    <Compile Include="Enums\CardTeam\CardTeamType.cs" />
-    <Compile Include="Enums\CardTeam\CardTeamVelocity.cs" />
-    <Compile Include="Exceptions\BaseException.cs" />
-    <Compile Include="Exceptions\CardCollectionException.cs" />
-    <Compile Include="Models\ModelProject\CardProjectBase.cs" />
-    <Compile Include="Models\ModelProject\CardProjectDependency.cs" />
-    <Compile Include="Enums\CardProject\TeamDependency.cs" />
-    <Compile Include="Models\ModelProject\CardProjectDependencyItem.cs" />
-    <Compile Include="Models\ModelProject\CardProjectOutsource.cs" />
-    <Compile Include="Models\ModelTeam\CardTeamBase.cs" />
-    <Compile Include="Models\ModelTeam\CardTeamDeveloper.cs" />
-    <Compile Include="Models\ModelTeam\CardTeamManager.cs" />
-    <Compile Include="Models\Player.cs" />
+    <Compile Include="Implementations\GameEngine.cs" />
+    <Compile Include="Implementations\IampmGame.cs" />
+    <Compile Include="Interfaces\IGame.cs" />
+    <Compile Include="Interfaces\IGameEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\IAMPM.GameObjects\IAMPM.GameObjects.csproj">
+      <Project>{E7ECA10E-8952-4172-8D17-3A58E3F991E6}</Project>
+      <Name>IAMPM.GameObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IAMPM.Services\IAMPM.Services.csproj">
+      <Project>{FECA50D0-DEE0-4E8F-928C-C5E6DB4AD663}</Project>
+      <Name>IAMPM.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

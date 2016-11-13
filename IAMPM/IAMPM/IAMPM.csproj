@@ -51,6 +51,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IAMPM.GameEngine\IAMPM.GameEngine.csproj">
+      <Project>{4170118C-ADF7-4EFF-BDD0-E1EDB18AE3FF}</Project>
+      <Name>IAMPM.GameEngine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IAMPM.GameObjects\IAMPM.GameObjects.csproj">
       <Project>{e7eca10e-8952-4172-8d17-3a58e3f991e6}</Project>
       <Name>IAMPM.GameObjects</Name>

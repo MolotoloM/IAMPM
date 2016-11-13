@@ -17,7 +17,7 @@ namespace IAMPM.Helpers
             {
                 return JsonConvert.DeserializeObject<T>(source);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
