@@ -59,6 +59,7 @@
     <Compile Include="Enums\CardProject\TeamDependency.cs" />
     <Compile Include="Models\ModelProject\CardProjectDependencyItem.cs" />
     <Compile Include="Models\ModelProject\CardProjectOutsource.cs" />
+    <Compile Include="Models\ModelProject\CardProjectProduct.cs" />
     <Compile Include="Models\ModelTeam\CardTeamBase.cs" />
     <Compile Include="Models\ModelTeam\CardTeamDeveloper.cs" />
     <Compile Include="Models\ModelTeam\CardTeamManager.cs" />

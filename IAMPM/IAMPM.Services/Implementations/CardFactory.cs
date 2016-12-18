@@ -45,6 +45,19 @@ namespace IAMPM.Services.Implementations
             return null;
         }
 
+        public CardProjectBase[] GetProjectAllCards()
+        {
+            var projectAllCards = new List<CardProjectBase>();
+
+            CardProjectOutsource[] outsourceCards = GetProjectOutsourceAllCards();
+            CardProjectProduct[] productCards = GetProjectProductAllCards();
+
+            projectAllCards.AddRange(outsourceCards);
+            projectAllCards.AddRange(productCards);
+
+            return projectAllCards.ToArray();
+        }
+
         public CardProjectOutsource[] GetProjectOutsourceAllCards()
         {
             if (ValidateFile(_projectOutsourceJsonPath))
@@ -53,6 +66,11 @@ namespace IAMPM.Services.Implementations
                 return json.Deserialize<CardProjectOutsource[]>();
             }
             return null;
+        }
+
+        public CardProjectProduct[] GetProjectProductAllCards()
+        {
+            return new CardProjectProduct[0];
         }
 
         #endregion

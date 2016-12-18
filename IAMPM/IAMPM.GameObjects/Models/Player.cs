@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using IAMPM.GameObjects.Models.ModelProject;
 using IAMPM.GameObjects.Models.ModelTeam;
 
 namespace IAMPM.GameObjects.Models
@@ -8,13 +9,19 @@ namespace IAMPM.GameObjects.Models
         private const int MinTeamCardCount = 2;
         private const int MaxTeamCardCount = 10;
 
-        public List<CardTeamDeveloper> TeamDevPlayer { get; set; }
-        public List<CardTeamManager> TeamManPlayer { get; set; }
+        private readonly List<CardTeamDeveloper> _teamDevPlayer;
+        private readonly List<CardTeamManager> _teamManPlayer;
+        private readonly CardProjectBase _startProject;
 
-        public Player(List<CardTeamDeveloper> teamDevPlayer, List<CardTeamManager> teamManPlayer)
+        public Player(
+            List<CardTeamDeveloper> teamDevPlayer, 
+            List<CardTeamManager> teamManPlayer, 
+            CardProjectBase startProject
+            )
         {
-            TeamDevPlayer = teamDevPlayer;
-            TeamManPlayer = teamManPlayer;
+            _teamDevPlayer = teamDevPlayer;
+            _teamManPlayer = teamManPlayer;
+            _startProject = startProject;
         }
     }
 }

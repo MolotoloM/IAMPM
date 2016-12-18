@@ -51,6 +51,10 @@
       <Project>{E7ECA10E-8952-4172-8D17-3A58E3F991E6}</Project>
       <Name>IAMPM.GameObjects</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IAMPM.Helpers\IAMPM.Helpers.csproj">
+      <Project>{35C325DA-D17A-48F7-8862-4727F7188488}</Project>
+      <Name>IAMPM.Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IAMPM.Services\IAMPM.Services.csproj">
       <Project>{FECA50D0-DEE0-4E8F-928C-C5E6DB4AD663}</Project>
       <Name>IAMPM.Services</Name>

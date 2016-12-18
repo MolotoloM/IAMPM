@@ -10,7 +10,9 @@ namespace IAMPM.Services.Interfaces
         #region GET
         CardTeamDeveloper[] GetDevAllCards();
         CardTeamManager[] GetManAllCards();
+        CardProjectBase[] GetProjectAllCards();
         CardProjectOutsource[] GetProjectOutsourceAllCards();
+        CardProjectProduct[] GetProjectProductAllCards();
         #endregion
 
         #region Create
