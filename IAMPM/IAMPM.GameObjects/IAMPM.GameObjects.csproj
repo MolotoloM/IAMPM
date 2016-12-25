@@ -54,6 +54,7 @@
     <Compile Include="Enums\CardTeam\CardTeamVelocity.cs" />
     <Compile Include="Exceptions\BaseException.cs" />
     <Compile Include="Exceptions\CardCollectionException.cs" />
+    <Compile Include="Exceptions\InvalidParamExeption.cs" />
     <Compile Include="Models\ModelProject\CardProjectBase.cs" />
     <Compile Include="Models\ModelProject\CardProjectDependency.cs" />
     <Compile Include="Enums\CardProject\TeamDependency.cs" />

@@ -12,6 +12,7 @@ namespace IAMPM.GameObjects.Models.ModelProject
         public CardProjectType Type { get; set; }
         public int Workload { get; set; }
         public int Period { get; set; }
+        public bool IsStart { get; set; }
 
         public CardProjectDependency StartDependency { get; set; }
         public CardProjectDependency FinishDependency { get; set; }

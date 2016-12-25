@@ -14,7 +14,7 @@ namespace IAMPM
         {
             //CreateProjectCards();
             //GetProjectOutsourceAllCards();
-            IGame game = new IampmGame(new CardFactory(), 1);
+            IGame game = new IampmGame(new CardFactory(), new ConfigurationService(), 3);
             IGameEngine gameEngine = new GameEngine.Implementations.GameEngine(game);
             gameEngine.Start();
         }

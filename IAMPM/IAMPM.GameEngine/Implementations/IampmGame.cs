@@ -18,20 +18,21 @@ namespace IAMPM.GameEngine.Implementations
     public class IampmGame : IGame
     {
         private readonly ICardFactory _cardFactory;
-        private readonly List<Player> _players;
-        private readonly int _playersCount;
-        private readonly List<CardTeamDeveloper> _devCards;
-        private readonly List<CardTeamManager> _manCards;
-        private readonly List<CardProjectBase> _projectCards; 
+        private readonly IConfigurationService _configurationService;
 
-        public IampmGame(ICardFactory cardFactory, int playersCount)
+        private readonly List<Player> _players;
+        private int _playersCount;
+        private List<CardTeamDeveloper> _devCards;
+        private List<CardTeamManager> _manCards;
+        private List<CardProjectBase> _projectCards;
+
+
+        public IampmGame(ICardFactory cardFactory, IConfigurationService configurationService, int playersCount)
         {
             _cardFactory = cardFactory;
-            _playersCount = playersCount;
+            _configurationService = configurationService;
 
-            _devCards = _cardFactory.GetDevAllCards().ToList();
-            _manCards = _cardFactory.GetManAllCards().ToList();
-            _projectCards = _cardFactory.GetProjectAllCards().ToList();
+            _playersCount = playersCount;
 
             _players = new List<Player>();
         }
@@ -39,8 +40,15 @@ namespace IAMPM.GameEngine.Implementations
         #region IGame
         public void PreStart()
         {
+            Validate();
+
+            _devCards = _cardFactory.GetDevAllCards().ToList();
+            _manCards = _cardFactory.GetManAllCards().ToList();
+            _projectCards = _cardFactory.GetProjectAllCards().ToList();
+
             CreatePlayers();
         }
+
 
         public void InProgress()
         {
@@ -48,21 +56,32 @@ namespace IAMPM.GameEngine.Implementations
         }
         #endregion
 
-        private void CreatePlayers()
+        private void Validate()
         {
-            for (int i = 0; i < _playersCount; i++)
+            if (_playersCount < _configurationService.MinPlayersCount ||
+                _playersCount > _configurationService.MaxPlayersCount)
             {
-                List<CardTeamDeveloper> devsInHand = GetDevCardsForPlayer();
-                List<CardTeamManager> mansInHand = GetManCardsForPlayer();
-                _players.Add(new Player(devsInHand, mansInHand, null));
+                throw new InvalidParamExeption<int>(nameof(_playersCount), _playersCount, _configurationService.MinPlayersCount, _configurationService.MaxPlayersCount);
             }
         }
 
-        private List<CardTeamDeveloper> GetDevCardsForPlayer()
+        private void CreatePlayers()
+        {
+            CardProjectBase startProject = GetRandomStartProjectCard(CardProjectType.Outsource, _configurationService.DefStartProjectWorkload, _configurationService.DefStartProjectPeriod);
+
+            for (int i = 0; i < _playersCount; i++)
+            {
+                List<CardTeamDeveloper> devsInHand = GetStartDevCardsForPlayer();
+                List<CardTeamManager> mansInHand = GetStartManCardsForPlayer();
+                _players.Add(new Player(devsInHand, mansInHand, startProject));
+            }
+        }
+
+        private List<CardTeamDeveloper> GetStartDevCardsForPlayer()
         {
             CardTeamDeveloper devCard;
             var devsinHand = new List<CardTeamDeveloper>();
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < _configurationService.DefStartDevCardsCount; j++)
             {
                 devCard = GetRandomTeamCard(_devCards, CardTeamLevel.Intern);
                 devsinHand.Add(devCard);
@@ -76,7 +95,7 @@ namespace IAMPM.GameEngine.Implementations
             return devsinHand;
         }
 
-        private List<CardTeamManager> GetManCardsForPlayer()
+        private List<CardTeamManager> GetStartManCardsForPlayer()
         {
             var mansInHand = new List<CardTeamManager>();
             var manCard = GetRandomTeamCard(_manCards, CardTeamLevel.Middle);
@@ -93,12 +112,17 @@ namespace IAMPM.GameEngine.Implementations
             return filteredCards.GetRandom($"TeamCard with level {level} not found"); // $ is string.format from C# 6 version
         }
 
-        private T GetRandomStartProjectCard<T>(IEnumerable<T> cards, CardProjectType type, int maxWorkload, int maxPeriod) where T: CardProjectBase
+        private CardProjectBase GetRandomStartProjectCard(CardProjectType type, int maxWorkload, int maxPeriod)
         {
-            T[] filteredCards = cards
+            CardProjectBase[] filteredCards = _projectCards
                 .Where(c => c.Type == type && c.Workload <= maxWorkload && c.Period <= maxPeriod)
                 .ToArray();
-            return filteredCards.GetRandom("StartProjectCard not found");
+
+            var card = filteredCards.GetRandom("StartProjectCard not found");
+            card.IsStart = true;
+
+            _projectCards.Remove(card);
+            return card;
         }
     }
 }

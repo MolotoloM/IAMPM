@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\CardFactory.cs" />
+    <Compile Include="Implementations\ConfigurationService.cs" />
     <Compile Include="Interfaces\ICardFactory.cs" />
+    <Compile Include="Interfaces\IConfigurationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
